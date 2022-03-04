@@ -1,12 +1,18 @@
-
+let savedPokemon = [];
+let saveCounter = 0;
+let saveLimit = 5;
 let frontSprite = '';
 let backSprite = '';
 let pokemonJson = '';
 
-const getInputValue = async () => {
+const fetchPokemon = async () => {
     let inputValue = document.getElementById('pokedexSearch').value;
     const response = await fetch('https://pokeapi.co/api/v2/pokemon/' + inputValue.toLowerCase());
     pokemonJson = await response.json();
+    renderPokemon();
+};
+
+const renderPokemon = () => {
 
     frontSprite = pokemonJson.sprites.front_default;
     backSprite = pokemonJson.sprites.back_default;
@@ -15,7 +21,9 @@ const getInputValue = async () => {
     image.src = frontSprite;
 
     getStats();
-};
+    const saveButton = document.getElementById('saveButton');
+    saveButton.hidden = false;
+}
 
 const getStats = () => {
     let stats = document.getElementById('pokeStats');
@@ -33,4 +41,16 @@ const swapSprite = () => {
         image.src = backSprite;
     else
         image.src = frontSprite;
+}
+
+const savePoke = () => {
+    savedPokemon[saveCounter] = pokemonJson;
+    saveCounter++;
+    if(saveCounter >= saveLimit)
+        saveCounter = 0;
+}
+
+const loadPoke = (index) => {
+    pokemonJson = savedPokemon[index];
+    renderPokemon();
 }

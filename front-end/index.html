@@ -7,13 +7,17 @@
 <body>
 <div class="searchBar">
     <input type="text" placeholder="Search..." id="pokedexSearch">
-    <button type="button" onclick="getInputValue();">Search</button>
+    <button type="button" onclick="fetchPokemon();">Search</button>
 </div>
 <div class="pokemonSprite">
     <img src='' id="pokemonSprite" onclick="swapSprite();"/>
+    <button type="button" hidden onclick="savePoke();" id="saveButton">Save</button>
 </div>
 <div class="pokemonStats">
     <p id="pokeStats"></p>
+</div>
+<div>
+    <button type="button" onclick="loadPoke(0);" id="loadButton">load</button>
 </div>
 </body>
 <script src="index.js"></script>
