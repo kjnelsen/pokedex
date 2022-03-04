@@ -7,8 +7,6 @@ const getInputValue = async () => {
     let inputValue = document.getElementById('pokedexSearch').value;
     const response = await fetch('https://pokeapi.co/api/v2/pokemon/' + inputValue.toLowerCase());
     pokemonJson = await response.json();
-    console.log(response);
-    console.log(pokemonJson);
 
     frontSprite = pokemonJson.sprites.front_default;
     backSprite = pokemonJson.sprites.back_default;
