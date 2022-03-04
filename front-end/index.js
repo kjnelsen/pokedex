@@ -21,6 +21,7 @@ const renderPokemon = () => {
     name.innerText = pokemonJson.name;
     const image = document.getElementById('pokemonSprite');
     image.src = frontSprite;
+    image.hidden = false;
 
     getStats();
     const saveButton = document.getElementById('saveButton');
