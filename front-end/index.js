@@ -1,8 +1,6 @@
 let savedPokemon = [];
 let saveCounter = 0;
 let saveLimit = 5;
-let frontSprite = '';
-let backSprite = '';
 let pokemonJson = '';
 
 const fetchPokemon = async () => {
@@ -14,18 +12,18 @@ const fetchPokemon = async () => {
 
 const renderPokemon = () => {
 
-    frontSprite = pokemonJson.sprites.front_default;
-    backSprite = pokemonJson.sprites.back_default;
-
     const name = document.getElementById('pokemonName');
     name.innerText = pokemonJson.name;
     const image = document.getElementById('pokemonSprite');
-    image.src = frontSprite;
+    image.src = pokemonJson.sprites.front_default;
     image.hidden = false;
 
     getStats();
     const saveButton = document.getElementById('saveButton');
+    const shinyButton = document.getElementById('shinyButton');
     saveButton.hidden = false;
+    shinyButton.hidden = false;
+
 }
 
 const getStats = () => {
@@ -40,10 +38,14 @@ const getStats = () => {
 
 const swapSprite = () => {
     const image = document.getElementById('pokemonSprite');
-    if (image.src === frontSprite)
-        image.src = backSprite;
-    else
-        image.src = frontSprite;
+    if (image.src === pokemonJson.sprites.front_default)
+        image.src = pokemonJson.sprites.back_default;
+    else if (image.src === pokemonJson.sprites.front_shiny)
+        image.src = pokemonJson.sprites.back_shiny;
+    else if (image.src === pokemonJson.sprites.back_default)
+        image.src = pokemonJson.sprites.front_default;
+    else if (image.src === pokemonJson.sprites.back_shiny)
+        image.src = pokemonJson.sprites.front_shiny;
 }
 
 const savePoke = () => {
@@ -60,4 +62,17 @@ const savePoke = () => {
 const loadPoke = (index) => {
     pokemonJson = savedPokemon[index];
     renderPokemon();
+}
+
+const getShiny = () => {
+    const image = document.getElementById('pokemonSprite');
+    if (image.src === pokemonJson.sprites.front_default)
+        image.src = pokemonJson.sprites.front_shiny;
+    else if (image.src === pokemonJson.sprites.back_default)
+        image.src = pokemonJson.sprites.back_shiny;
+    else if (image.src === pokemonJson.sprites.front_shiny)
+        image.src = pokemonJson.sprites.front_default;
+    else if (image.src === pokemonJson.sprites.back_shiny)
+        image.src = pokemonJson.sprites.back_default;
+
 }
