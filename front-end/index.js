@@ -17,6 +17,8 @@ const renderPokemon = () => {
     frontSprite = pokemonJson.sprites.front_default;
     backSprite = pokemonJson.sprites.back_default;
 
+    const name = document.getElementById('pokemonName');
+    name.innerText = pokemonJson.name;
     const image = document.getElementById('pokemonSprite');
     image.src = frontSprite;
 
@@ -45,9 +47,13 @@ const swapSprite = () => {
 
 const savePoke = () => {
     savedPokemon[saveCounter] = pokemonJson;
+    const carouselToUpdate = 'carousel' + saveCounter.toString();
     saveCounter++;
     if(saveCounter >= saveLimit)
         saveCounter = 0;
+
+    const carousel = document.getElementById(carouselToUpdate);
+    carousel.src = pokemonJson.sprites.front_default;
 }
 
 const loadPoke = (index) => {

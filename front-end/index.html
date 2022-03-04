@@ -10,14 +10,21 @@
     <button type="button" onclick="fetchPokemon();">Search</button>
 </div>
 <div class="pokemonSprite">
+    <span id="pokemonName"></span>
     <img src='' id="pokemonSprite" onclick="swapSprite();"/>
     <button type="button" hidden onclick="savePoke();" id="saveButton">Save</button>
 </div>
 <div class="pokemonStats">
     <p id="pokeStats"></p>
 </div>
-<div>
-    <button type="button" onclick="loadPoke(0);" id="loadButton">load</button>
+<div class="row">
+    <div class="column">
+        <img src="" id="carousel0" onclick="loadPoke(0);">
+        <img src="" id="carousel1" onclick="loadPoke(1);">
+        <img src="" id="carousel2" onclick="loadPoke(2);">
+        <img src="" id="carousel3" onclick="loadPoke(3);">
+        <img src="" id="carousel4" onclick="loadPoke(4);">
+    </div>
 </div>
 </body>
 <script src="index.js"></script>
