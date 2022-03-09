@@ -1,6 +1,5 @@
 let savedPokemon = [];
 let saveCounter = 0;
-let saveLimit = 5;
 let pokemonJson = '';
 
 const fetchPokemon = async () => {
@@ -13,7 +12,7 @@ const fetchPokemon = async () => {
 const renderPokemon = () => {
 
     const name = document.getElementById('pokemonName');
-    name.innerText = pokemonJson.name;
+    name.innerText = '#' + pokemonJson.id + ' : ' + pokemonJson.name;
     const image = document.getElementById('pokemonSprite');
     image.src = pokemonJson.sprites.front_default;
     image.hidden = false;
@@ -38,6 +37,7 @@ const getStats = () => {
 
 const swapSprite = () => {
     const image = document.getElementById('pokemonSprite');
+    console.log(pokemonJson.sprites.front_default);
     if (image.src === pokemonJson.sprites.front_default)
         image.src = pokemonJson.sprites.back_default;
     else if (image.src === pokemonJson.sprites.front_shiny)
@@ -51,12 +51,12 @@ const swapSprite = () => {
 const savePoke = () => {
     savedPokemon[saveCounter] = pokemonJson;
     const carouselToUpdate = 'carousel' + saveCounter.toString();
-    saveCounter++;
-    if(saveCounter >= saveLimit)
-        saveCounter = 0;
 
-    const carousel = document.getElementById(carouselToUpdate);
-    carousel.src = pokemonJson.sprites.front_default;
+    const row = document.getElementById('pokemonCarousel');
+    row.innerHTML +=
+        '<img src= ' + pokemonJson.sprites.front_default + ' id=' + carouselToUpdate + ' onclick=loadPoke(' + saveCounter + ');>';
+
+    saveCounter++;
 }
 
 const loadPoke = (index) => {

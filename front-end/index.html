@@ -3,6 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        h1 {
+            color: Green;
+        }
+
+        div.column {
+            padding: 4px;
+            background-color: transparent;
+            width: 500px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            white-space: nowrap;
+        }
+    </style>
 </head>
 <body>
 <div class="searchBar">
@@ -19,12 +33,7 @@
     <p id="pokeStats"></p>
 </div>
 <div class="row">
-    <div class="column">
-        <img src="" id="carousel0" onclick="loadPoke(0);">
-        <img src="" id="carousel1" onclick="loadPoke(1);">
-        <img src="" id="carousel2" onclick="loadPoke(2);">
-        <img src="" id="carousel3" onclick="loadPoke(3);">
-        <img src="" id="carousel4" onclick="loadPoke(4);">
+    <div class="column" id="pokemonCarousel">
     </div>
 </div>
 </body>
