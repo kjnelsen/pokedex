@@ -17,7 +17,6 @@ const renderPokemon = () => {
     const image = document.getElementById('pokemonSprite');
     image.src = pokemonJson.sprites.front_default;
     image.hidden = false;
-
     getStats();
     const saveButton = document.getElementById('saveButton');
     const shinyButton = document.getElementById('shinyButton');
@@ -51,7 +50,6 @@ const swapSprite = () => {
 const savePoke = () => {
     localStorage.setItem(localStorage.getItem('index'), pokemonRaw)
     const carouselToUpdate = 'carousel' + localStorage.getItem('index');
-
     const row = document.getElementById('pokemonCarousel');
     const imageTag = '<img src= ' + pokemonJson.sprites.front_default + ' id=' + carouselToUpdate + ' onclick=loadPoke(' + localStorage.getItem('index') + ');>';
     row.innerHTML += imageTag;
@@ -62,7 +60,8 @@ const savePoke = () => {
 }
 
 const loadPoke = (index) => {
-    pokemonJson = JSON.parse(localStorage.getItem(index));
+    pokemonRaw = localStorage.getItem(index);
+    pokemonJson = JSON.parse(pokemonRaw);
     renderPokemon();
 }
 
