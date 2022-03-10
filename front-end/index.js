@@ -1,11 +1,12 @@
-let savedPokemon = [];
-let saveCounter = 0;
 let pokemonJson = '';
+const localStorage = window.localStorage;
+let pokemonRaw = '';
 
 const fetchPokemon = async () => {
     let inputValue = document.getElementById('pokedexSearch').value;
     const response = await fetch('https://pokeapi.co/api/v2/pokemon/' + inputValue.toLowerCase());
-    pokemonJson = await response.json();
+    pokemonRaw = await response.text();
+    pokemonJson = JSON.parse(pokemonRaw);
     renderPokemon();
 };
 
@@ -37,7 +38,6 @@ const getStats = () => {
 
 const swapSprite = () => {
     const image = document.getElementById('pokemonSprite');
-    console.log(pokemonJson.sprites.front_default);
     if (image.src === pokemonJson.sprites.front_default)
         image.src = pokemonJson.sprites.back_default;
     else if (image.src === pokemonJson.sprites.front_shiny)
@@ -49,19 +49,39 @@ const swapSprite = () => {
 }
 
 const savePoke = () => {
-    savedPokemon[saveCounter] = pokemonJson;
-    const carouselToUpdate = 'carousel' + saveCounter.toString();
+    localStorage.setItem(localStorage.getItem('index'), pokemonRaw)
+    const carouselToUpdate = 'carousel' + localStorage.getItem('index');
 
     const row = document.getElementById('pokemonCarousel');
-    row.innerHTML +=
-        '<img src= ' + pokemonJson.sprites.front_default + ' id=' + carouselToUpdate + ' onclick=loadPoke(' + saveCounter + ');>';
+    const imageTag = '<img src= ' + pokemonJson.sprites.front_default + ' id=' + carouselToUpdate + ' onclick=loadPoke(' + localStorage.getItem('index') + ');>';
+    row.innerHTML += imageTag;
+    localStorage.setItem(carouselToUpdate, imageTag);
 
-    saveCounter++;
+    const newIndex = parseInt(localStorage.getItem('index')) + 1;
+    localStorage.setItem('index', newIndex.toString());
 }
 
 const loadPoke = (index) => {
-    pokemonJson = savedPokemon[index];
+    pokemonJson = JSON.parse(localStorage.getItem(index));
     renderPokemon();
+}
+
+const loadCarousel = () => {
+    if(localStorage.getItem('index') === null)
+        localStorage.setItem('index', '0');
+
+    const row = document.getElementById('pokemonCarousel');
+    for(let i = 0; i < parseInt(localStorage.getItem('index')); i++)
+    {
+        row.innerHTML += localStorage.getItem('carousel' + i.toString());
+    }
+}
+
+const clearCarousel = () => {
+    localStorage.clear();
+    localStorage.setItem('index', '0');
+    const row = document.getElementById('pokemonCarousel');
+    row.innerHTML = '';
 }
 
 const getShiny = () => {
